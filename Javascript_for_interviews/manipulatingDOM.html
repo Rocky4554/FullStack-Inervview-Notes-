@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulating DOM</title>
+</head>
+<body>
+    <h2>DOM(Document Object Model)</h2>
+    <div class="container">
+        <ul id="listing">
+            <li id="lis1">Home</li>
+            <li id="lis2">About</li>
+            <li id="lis3">Services</li>
+            <li id="lis4">Contact Us</li>
+        </ul>
+        
+    </div>
+    <script>
+        let main=document.getElementsByClassName('conatiner');
+        console.log(main);
+        let main2=document.getElementById('listing');
+        console.log(main2);
+    </script>
+</body>
+</html>

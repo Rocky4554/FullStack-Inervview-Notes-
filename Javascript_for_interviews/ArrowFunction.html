@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <div class="container">
+        <H3>Arrow Function</H3>
+    </div>
+    <script>
+        // function greet(){
+        //     console.log("Good morning");
+        // }
+        //  greet();
+        greet = ()=>{
+            console.log("Good Morning");
+        }
+        greet();
+
+        setTimeout(() => {
+            console.log("We are inside timeout");
+        }, 3000);
+
+         sum=(a,b)=>{
+            return a*b;
+        }
+
+        let prod=(a,b)=>a+b;// shorthend for function
+          
+        let obj={// we have created a object;
+            greeting:"Good morning",
+            name:["raunak","rocky","hero"],
+            speak(){
+                this.name.forEach((student)=>{
+                    console.log(this.greeting + "  halalal huauhau  " + student);
+                });
+            }
+
+        }
+        obj.speak();
+    </script>
+</body>
+</html>
