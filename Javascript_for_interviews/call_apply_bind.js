@@ -42,4 +42,50 @@ const printdetails=function(){
 
 printdetails.call(employee1);
 printdetails.call(employee2);
+
 // here we have created a common printing fuction of the objects and using it using call function 
+
+////////// function borrowing //////////////
+
+let name ={
+    first:"Raunak",
+    last:"Kumar",
+    print:function(){
+        console.log("My name is : " + this.first + " " + this.last);
+    },
+}
+
+name.print();
+
+
+let name2 ={
+    first:"Rocky",
+    last:"Kumar",
+    }
+
+ name.print.call(name2); // borrowing function print from the name and changing this here 
+
+
+ ///////// use of apply ///
+
+ let details ={
+    first:"Raunak",
+    last:"Kumar",
+ }
+
+const display=function(hometown , city ){
+        console.log("My name is : " + this.first + " " + this.last + " from " + hometown + " , " + city);
+    } 
+
+let details2 ={
+    first:"Rocky",
+    last:"Kumar",
+    }
+
+ display.call(details2, "Bihar", "patna"); // borrowing function print from the name and changing this here 
+ display.apply(details,["Bihar", "Patna"]); // apply as it takes input as array 
+
+ ///////////// using bind ()//////
+
+ let later =  display.bind(details2, "Bihar", "patna"); // stroing the function so that it an be used later using bind;
+ later();

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <title>Event Delegation</title>
+    <style>
+        .fruits{
+            color:blue;
+            padding:10px;
+            margin:10px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <ul class="fruits">
+        <li>Apple</li>
+        <li>Banana</li>
+        <li>Kiwi</li>
+        <li>Guava</li>
+    </ul>
+    <script>
+        document.querySelector('.fruits').addEventListener("click", (event)=>{
+            if(event.target.tagName === "LI"){
+                
+                alert("You clicked " + event.target.textContent);
+                
+            }
+        });
+    </script>
+</body>
