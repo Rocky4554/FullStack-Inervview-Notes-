@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    /* --- Basic form styles --- */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      width: auto;
+      margin-right: 5px;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="registrationForm">
+    <h2>Registration Form</h2>
+
+    <!-- Username -->
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" placeholder="Enter username">
+    <div class="error" id="usernameError"></div>
+
+    <!-- Email -->
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Enter email">
+    <div class="error" id="emailError"></div>
+
+    <!-- Password -->
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Enter password">
+    <div class="error" id="passwordError"></div>
+
+    <!-- Gender -->
+    <label>Gender</label>
+    <input type="radio" name="gender" value="male"> Male
+    <input type="radio" name="gender" value="female"> Female
+    <div class="error" id="genderError"></div>
+
+    <!-- Hobbies -->
+    <label>Hobbies</label>
+    <input type="checkbox" name="hobbies" value="reading"> Reading
+    <input type="checkbox" name="hobbies" value="sports"> Sports
+    <input type="checkbox" name="hobbies" value="music"> Music
+    <div class="error" id="hobbiesError"></div>
+
+    <!-- Country -->
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="">-- Select Country --</option>
+      <option value="in">India</option>
+      <option value="us">USA</option>
+      <option value="uk">UK</option>
+    </select>
+    <div class="error" id="countryError"></div>
+
+    <!-- File upload -->
+    <label for="resume">Upload Resume</label>
+    <input type="file" id="resume" name="resume">
+    <div class="error" id="resumeError"></div>
+
+    <!-- Message -->
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="3"></textarea>
+    <div class="error" id="messageError"></div>
+
+    <button type="submit">Register</button>
+    <button type="reset">Reset</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("registrationForm");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // stop default form submission
+      let valid = true;
+
+      // clear old errors
+      document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+      // username validation
+      const username = form.username.value.trim();
+      if (username.length < 3) {
+        document.getElementById("usernameError").textContent = "Username must be at least 3 characters";
+        valid = false;
+      }
+
+      // email validation
+      const email = form.email.value.trim();
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        document.getElementById("emailError").textContent = "Enter a valid email";
+        valid = false;
+      }
+
+      // password validation
+      const password = form.password.value;
+      if (password.length < 6) {
+        document.getElementById("passwordError").textContent = "Password must be at least 6 characters";
+        valid = false;
+      }
+
+      // gender validation
+      if (!form.gender.value) {
+        document.getElementById("genderError").textContent = "Select a gender";
+        valid = false;
+      }
+
+      // hobbies validation (at least one)
+      const hobbies = form.querySelectorAll("input[name='hobbies']:checked");
+      if (hobbies.length === 0) {
+        document.getElementById("hobbiesError").textContent = "Select at least one hobby";
+        valid = false;
+      }
+
+      // country validation
+      if (!form.country.value) {
+        document.getElementById("countryError").textContent = "Select a country";
+        valid = false;
+      }
+
+      // file validation
+      if (!form.resume.value) {
+        document.getElementById("resumeError").textContent = "Upload your resume";
+        valid = false;
+      }
+
+      // message validation
+      if (form.message.value.trim().length < 10) {
+        document.getElementById("messageError").textContent = "Message must be at least 10 characters";
+        valid = false;
+      }
+
+      // If valid, simulate form submit
+      if (valid) {
+        alert("Form submitted successfully ✅");
+        console.log("Form Data Collected:", {
+          username,
+          email,
+          password,
+          gender: form.gender.value,
+          hobbies: Array.from(hobbies).map(h => h.value),
+          country: form.country.value,
+          resume: form.resume.value,
+          message: form.message.value
+        });
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
