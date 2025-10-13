@@ -1,0 +1,88 @@
+/* Container Styling */
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  background-color: #fdfdfd;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+}
+
+/* Heading */
+.heading {
+  color: #4a4a4a;
+  margin-bottom: 20px;
+}
+
+/* Input Area */
+.todo-input {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-box {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.add-btn {
+  padding: 8px 15px;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  background-color: #45a049;
+}
+
+/* Todo List */
+.todo-list {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7c2727;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  transition: 0.2s;
+}
+
+
+
+/* Remove Button */
+.remove-btn {
+  background-color: #ff5252;
+  border: none;
+  color: rgb(22, 14, 14);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.remove-btn:hover {
+  background-color: #e53935;
+}
+
+/* Empty State */
+.empty {
+  color: #999;
+  font-style: italic;
+}

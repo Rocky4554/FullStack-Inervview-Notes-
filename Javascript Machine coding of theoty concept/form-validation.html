@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="radio"] {
+      width: auto;
+      margin-right: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #message {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="signupForm" novalidate>
+    <h2>Signup</h2>
+
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" />
+    <div class="error" id="nameError"></div>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" />
+    <div class="error" id="passwordError"></div>
+
+    <label>Gender</label>
+    <label><input type="radio" name="gender" value="Male" /> Male</label>
+    <label><input type="radio" name="gender" value="Female" /> Female</label>
+    <div class="error" id="genderError"></div>
+
+    <label for="city">City</label>
+    <select id="city" name="city">
+      <option value="">Select City</option>
+      <option value="Delhi">Delhi</option>
+      <option value="Mumbai">Mumbai</option>
+      <option value="Bangalore">Bangalore</option>
+      <option value="Kolkata">Kolkata</option>
+    </select>
+    <div class="error" id="cityError"></div>
+
+    <label for="image">Profile Image</label>
+    <input type="file" id="image" name="image" accept="image/*" />
+    <div class="error" id="imageError"></div>
+
+    <button type="submit">Submit</button>
+
+    <div id="message"></div>
+  </form>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const message = document.getElementById('message');
+
+    // Helper: Show error messages
+    function showError(id, text) {
+      document.getElementById(id).textContent = text;
+    }
+
+    // Helper: Clear all errors
+    function clearErrors() {
+      document.querySelectorAll('.error').forEach(el => el.textContent = '');
+      message.textContent = '';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearErrors();
+
+      const name = document.getElementById('name').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const genderInput = document.querySelector('input[name="gender"]:checked');
+      const gender = genderInput ? genderInput.value : '';
+      const city = document.getElementById('city').value;
+      const image = document.getElementById('image').files[0];
+
+      let valid = true;
+
+      // Validate Name
+      if (!name) {
+        showError('nameError', 'Name is required.');
+        valid = false;
+      }
+
+      // Validate Password
+      if (!password) {
+        showError('passwordError', 'Password is required.');
+        valid = false;
+      } else if (password.length < 6) {
+        showError('passwordError', 'Password must be at least 6 characters.');
+        valid = false;
+      }
+
+      // Validate Gender
+      if (!gender) {
+        showError('genderError', 'Please select gender.');
+        valid = false;
+      }
+
+      // Validate City
+      if (!city) {
+        showError('cityError', 'Please select a city.');
+        valid = false;
+      }
+
+      // Validate Image
+      if (!image) {
+        showError('imageError', 'Please choose an image.');
+        valid = false;
+      } else if (!['image/jpeg', 'image/png'].includes(image.type)) {
+        showError('imageError', 'Only JPG or PNG images are allowed.');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Prepare data to send
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('password', password);
+      formData.append('gender', gender);
+      formData.append('city', city);
+      formData.append('image', image);
+
+      try {
+        const res = await fetch('/api/sign', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (res.ok) {
+          message.style.color = 'green';
+          message.textContent = '✅ Form submitted successfully!';
+          form.reset();
+        } else {
+          message.style.color = 'red';
+          message.textContent = '❌ Server error while submitting.';
+        }
+      } catch (error) {
+        console.error(error);
+        message.style.color = 'red';
+        message.textContent = '⚠️ Network error.';
+      }
+    });
+  </script>
+</body>
+</html>
