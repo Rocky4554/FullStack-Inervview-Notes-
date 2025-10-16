@@ -1,0 +1,17 @@
+.main{
+    width:auto;
+}
+.title{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    gap:2px;
+}
+.open-close{
+    padding:2px;
+    border-radius:2px solid black;
+    background:rgb(201, 141, 141);
+}
+.content{
+    color:blueviolet
+}

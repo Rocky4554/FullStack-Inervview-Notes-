@@ -31,7 +31,7 @@ document.getElementById('toggleBtn').addEventListener('click', function() {
   } else {
     content.style.display = 'none';
   }
-});
+}); 
 
 // Alternative using classList
 function toggleContent() {
